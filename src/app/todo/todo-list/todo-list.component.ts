@@ -7,10 +7,11 @@ import { TodoService, Todo } from '../todo.service';
 })
 export class TodoListComponent implements OnInit {
   todos: Todo[] = [];
-  editingId: string | null = null;
+  editingId: string | null = null; //lưu ID, nếu không đang sửa => null
 
   constructor(private todoService: TodoService) {}
 
+  //subscribe để nghe dữ liệu từ Observable. Khi todos được nhận từ getTodos(), hàm call back gán dữ liệu nhận được vào this.todos
   ngOnInit() {
     this.todoService.getTodos().subscribe(todos => (this.todos = todos));
   }

@@ -14,6 +14,7 @@ export class TodoItemComponent {
   @Output() finishEdit = new EventEmitter<Todo>();
   editedText: string = '';
 
+  //so sánh ID, trùng thì sửa
   ngOnChanges() {
     if (this.editingId === this.todo.id) {
       this.editedText = this.todo.text;
@@ -32,6 +33,8 @@ export class TodoItemComponent {
     this.finishEdit.emit(undefined);
   }
 
+  //trim() kiểm tra editedText có rỗng không, && kiểm tra xem có khác ban đầu không.
+  //...this.todo tạo shallow copy của this.todo và ghi đè thuộc tính text; else phát ra undefined để hủy việc lưu.
   onSaveEdit() {
     if (this.editedText.trim() && this.editedText !== this.todo.text) {
       this.finishEdit.emit({ ...this.todo, text: this.editedText });
