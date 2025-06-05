@@ -1,0 +1,11 @@
+<div class="bg-white border rounded shadow">
+  <app-todo-item
+    *ngFor="let todo of todos"
+    [todo]="todo"
+    [editingId]="editingId"
+    (delete)="deleteTask($event)"
+    (update)="updateTask($event)"
+    (startEdit)="startEdit($event)"
+    (finishEdit)="finishEdit($event)"
+  ></app-todo-item>
+</div>
