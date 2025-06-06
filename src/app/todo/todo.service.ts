@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
 
 export interface Todo {
   id?: string;
   text: string;
   completed: boolean;
+  order?: number;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -14,12 +15,35 @@ export class TodoService {
 
   constructor(private afs: AngularFirestore) {}
 
+  // trả về Observable chứa mảng Todo. Hàm callback sắp xếp theo thứ tự tăng dần của order
+  // valueChanges trả về Observable phát ra dữ liệu mới khi có thay đổi
   getTodos(): Observable<Todo[]> {
-    return this.afs.collection<Todo>(this.collectionName).valueChanges({ idField: 'id' });
+    return this.afs
+      .collection<Todo>(this.collectionName, ref => ref.orderBy('order', 'asc'))
+      .valueChanges({ idField: 'id' });
   }
 
+  // !snapshot.empty => có tài liệu tìm thấy
+  // snapshot.docs[0].data().order || 0 => lấy giá trị order của tài liệu đầu tiên hoặc trả về 0 nếu không có
+  // const todoWithOrder = {...todo, order: newOrder }; => tạo một đối tượng mới todoWithOrder bằng cách sao chép các thuộc tính từ todo và thêm thuộc tính order với giá trị newOrder
   addTodo(todo: Todo) {
-    return this.afs.collection<Todo>(this.collectionName).add(todo);
+    const collectionRef = this.afs.collection<Todo>(this.collectionName);
+
+    return from(
+      collectionRef.ref
+        .orderBy('order', 'desc')
+        .limit(1)
+        .get()
+        .then(snapshot => {
+          let newOrder = 1;
+          if (!snapshot.empty) {
+            const maxOrder = snapshot.docs[0].data().order || 0;
+            newOrder = maxOrder + 1;
+          }
+          const todoWithOrder = { ...todo, order: newOrder };
+          return collectionRef.add(todoWithOrder);
+        })
+    );
   }
 
   updateTodo(todo: Todo) {
