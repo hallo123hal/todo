@@ -23,6 +23,9 @@ export class TodoService {
       .valueChanges({ idField: 'id' });
   }
 
+  // return from, chuyển Promise (get()) thành Observable
+  // orderBy sắp xếp giảm dần, limit trả về 1 => lớn nhất
+  // snapshot (data ngay tại thời điểm đó) giải quyết promise trả về từ get()
   // !snapshot.empty => có tài liệu tìm thấy
   // snapshot.docs[0].data().order || 0 => lấy giá trị order của tài liệu đầu tiên hoặc trả về 0 nếu không có
   // const todoWithOrder = {...todo, order: newOrder }; => tạo một đối tượng mới todoWithOrder bằng cách sao chép các thuộc tính từ todo và thêm thuộc tính order với giá trị newOrder
