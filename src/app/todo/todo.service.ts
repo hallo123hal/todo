@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Observable, from } from 'rxjs';
+import { Observable, from, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { AuthService } from '../auth/auth.service';
 
 export interface Todo {
@@ -8,7 +9,7 @@ export interface Todo {
   text: string;
   completed: boolean;
   order?: number;
-  userId: string; // Thêm userId để liên kết với user
+  userId: string;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -17,55 +18,52 @@ export class TodoService {
 
   constructor(private afs: AngularFirestore, private authService: AuthService) {}
 
-  // Lấy todos của user hiện tại
+  // Lấy todos của user hiện tại - xử lý trường hợp chưa có collection
   getTodos(): Observable<Todo[]> {
     const currentUser = this.authService.currentUser;
     if (!currentUser) {
-      throw new Error('User not authenticated');
+      console.warn('User not authenticated');
+      return of([]); // Trả về empty array thay vì throw error
     }
+
+    console.log('Current user ID:', currentUser.id); // Debug log
 
     return this.afs
       .collection<Todo>(this.collectionName, ref => 
         ref.where('userId', '==', currentUser.id)
-           .orderBy('order', 'asc')
+        //.orderBy('order', 'asc')
       )
-      .valueChanges({ idField: 'id' });
+      .valueChanges({ idField: 'id' })
+      .pipe(
+        catchError(error => {
+          console.error('Error fetching todos:', error);
+          // Log chi tiết lỗi
+          if (error.code === 'failed-precondition') {
+            console.error('Firestore index needed. Check the error message for the index creation link.');
+          }
+          return of([]); // Trả về empty array khi có lỗi
+        })
+      );
   }
 
-  // Thêm todo cho user hiện tại
-  addTodo(todo: Omit<Todo, 'userId'>) {
+  // Thêm todo cho user hiện tại - đơn giản hóa logic order
+  addTodo(todoText: string): Observable<any> {
     const currentUser = this.authService.currentUser;
     if (!currentUser) {
       throw new Error('User not authenticated');
     }
 
-    const collectionRef = this.afs.collection<Todo>(this.collectionName);
+    const newTodo: Omit<Todo, 'id'> = {
+      text: todoText,
+      completed: false,
+      userId: currentUser.id!,
+      order: Date.now() // Sử dụng timestamp để đảm bảo unique order
+    };
 
-    return from(
-      collectionRef.ref
-        .where('userId', '==', currentUser.id)
-        .orderBy('order', 'desc')
-        .limit(1)
-        .get()
-        .then(snapshot => {
-          let newOrder = 1;
-          if (!snapshot.empty) {
-            const maxOrder = snapshot.docs[0].data().order || 0;
-            newOrder = maxOrder + 1;
-          }
-          
-          const todoWithUserAndOrder = { 
-            ...todo, 
-            userId: currentUser.id!, 
-            order: newOrder 
-          };
-          
-          return collectionRef.add(todoWithUserAndOrder);
-        })
-    );
+    return from(this.afs.collection<Todo>(this.collectionName).add(newTodo));
   }
 
-  updateTodo(todo: Todo) {
+  updateTodo(todo: Todo): Promise<void> {
     const currentUser = this.authService.currentUser;
     if (!currentUser) {
       throw new Error('User not authenticated');
@@ -79,7 +77,7 @@ export class TodoService {
     return this.afs.collection(this.collectionName).doc(todo.id).update(todo);
   }
 
-  deleteTodo(id: string) {
+  deleteTodo(id: string): Promise<void> {
     const currentUser = this.authService.currentUser;
     if (!currentUser) {
       throw new Error('User not authenticated');
