@@ -1,36 +1,49 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable, from } from 'rxjs';
+import { AuthService } from '../auth/auth.service';
 
 export interface Todo {
   id?: string;
   text: string;
   completed: boolean;
   order?: number;
+  userId: string; // Thêm userId để liên kết với user
 }
 
 @Injectable({ providedIn: 'root' })
 export class TodoService {
   private collectionName = 'todos';
 
-  constructor(private afs: AngularFirestore) {}
+  constructor(private afs: AngularFirestore, private authService: AuthService) {}
 
-  // trả về Observable chứa mảng Todo. Hàm callback sắp xếp theo thứ tự tăng dần của order
-  // valueChanges trả về Observable phát ra dữ liệu mới khi có thay đổi
+  // Lấy todos của user hiện tại
   getTodos(): Observable<Todo[]> {
+    const currentUser = this.authService.currentUser;
+    if (!currentUser) {
+      throw new Error('User not authenticated');
+    }
+
     return this.afs
-      .collection<Todo>(this.collectionName, ref => ref.orderBy('order', 'asc'))
+      .collection<Todo>(this.collectionName, ref => 
+        ref.where('userId', '==', currentUser.id)
+           .orderBy('order', 'asc')
+      )
       .valueChanges({ idField: 'id' });
   }
 
-  // !snapshot.empty => có tài liệu tìm thấy
-  // snapshot.docs[0].data().order || 0 => lấy giá trị order của tài liệu đầu tiên hoặc trả về 0 nếu không có
-  // const todoWithOrder = {...todo, order: newOrder }; => tạo một đối tượng mới todoWithOrder bằng cách sao chép các thuộc tính từ todo và thêm thuộc tính order với giá trị newOrder
-  addTodo(todo: Todo) {
+  // Thêm todo cho user hiện tại
+  addTodo(todo: Omit<Todo, 'userId'>) {
+    const currentUser = this.authService.currentUser;
+    if (!currentUser) {
+      throw new Error('User not authenticated');
+    }
+
     const collectionRef = this.afs.collection<Todo>(this.collectionName);
 
     return from(
       collectionRef.ref
+        .where('userId', '==', currentUser.id)
         .orderBy('order', 'desc')
         .limit(1)
         .get()
@@ -40,17 +53,51 @@ export class TodoService {
             const maxOrder = snapshot.docs[0].data().order || 0;
             newOrder = maxOrder + 1;
           }
-          const todoWithOrder = { ...todo, order: newOrder };
-          return collectionRef.add(todoWithOrder);
+          
+          const todoWithUserAndOrder = { 
+            ...todo, 
+            userId: currentUser.id!, 
+            order: newOrder 
+          };
+          
+          return collectionRef.add(todoWithUserAndOrder);
         })
     );
   }
 
   updateTodo(todo: Todo) {
+    const currentUser = this.authService.currentUser;
+    if (!currentUser) {
+      throw new Error('User not authenticated');
+    }
+
+    // Đảm bảo chỉ update todo của user hiện tại
+    if (todo.userId !== currentUser.id) {
+      throw new Error('Unauthorized to update this todo');
+    }
+
     return this.afs.collection(this.collectionName).doc(todo.id).update(todo);
   }
 
   deleteTodo(id: string) {
-    return this.afs.collection(this.collectionName).doc(id).delete();
+    const currentUser = this.authService.currentUser;
+    if (!currentUser) {
+      throw new Error('User not authenticated');
+    }
+
+    // Kiểm tra todo có thuộc về user hiện tại không
+    return this.afs.collection(this.collectionName).doc(id).get().toPromise()
+      .then(doc => {
+        if (!doc?.exists) {
+          throw new Error('Todo not found');
+        }
+        
+        const todoData = doc.data() as Todo;
+        if (todoData.userId !== currentUser.id) {
+          throw new Error('Unauthorized to delete this todo');
+        }
+        
+        return this.afs.collection(this.collectionName).doc(id).delete();
+      });
   }
 }

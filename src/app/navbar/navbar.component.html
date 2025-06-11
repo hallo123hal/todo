@@ -1,0 +1,36 @@
+<nav class="bg-pink-500 shadow-lg">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="flex justify-between items-center py-4">
+        <div class="flex items-center">
+          <h1 class="text-white text-xl font-bold">Todo App</h1>
+        </div>
+        
+        <div class="flex items-center space-x-4">
+          <!-- Khi chưa đăng nhập -->
+          <ng-container *ngIf="!authService.isLoggedIn">
+            <a routerLink="/login" 
+               routerLinkActive="bg-pink-600" 
+               class="text-white hover:bg-pink-600 px-3 py-2 rounded-md transition">
+              Login
+            </a>
+            <a routerLink="/register" 
+               routerLinkActive="bg-pink-600" 
+               class="text-white hover:bg-pink-600 px-3 py-2 rounded-md transition">
+              Register
+            </a>
+          </ng-container>
+          
+          <!-- Khi đã đăng nhập -->
+          <ng-container *ngIf="authService.isLoggedIn">
+            <span class="text-white mr-4">
+              Welcome, {{ authService.currentUser?.username }}!
+            </span>
+            <button (click)="logout()" 
+                    class="text-white hover:bg-pink-600 px-3 py-2 rounded-md transition">
+              Logout
+            </button>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </nav>

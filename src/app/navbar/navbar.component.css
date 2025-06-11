@@ -1,0 +1,14 @@
+/* Custom styles cho navbar component nếu cần */
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  .nav-link {
+    transition: all 0.3s ease;
+  }
+  
+  .nav-link:hover {
+    transform: translateY(-1px);
+  }

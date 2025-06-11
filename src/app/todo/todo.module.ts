@@ -4,10 +4,21 @@ import { FormsModule } from '@angular/forms';
 import { TodoListComponent } from './todo-list/todo-list.component';
 import { TodoInputComponent } from './todo-input/todo-input.component';
 import { TodoItemComponent } from './todo-item/todo-item.component';
+import { TodoContainerComponent } from './todo-container/todo-container.component';
 
 @NgModule({
-  declarations: [TodoListComponent, TodoInputComponent, TodoItemComponent],
+  declarations: [
+    TodoListComponent, 
+    TodoInputComponent, 
+    TodoItemComponent,
+    TodoContainerComponent
+  ],
   imports: [CommonModule, FormsModule],
-  exports: [TodoListComponent, TodoInputComponent, TodoItemComponent]
+  exports: [
+    TodoListComponent, 
+    TodoInputComponent, 
+    TodoItemComponent,
+    TodoContainerComponent
+  ]
 })
 export class TodoModule { }
