@@ -8,10 +8,11 @@ export class AuthGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
     const isLoggedIn = this.authService.isLoggedIn;
+    const hasValidToken = this.authService.getToken() !== null;
     const url = route.url[0]?.path;
 
-    // Nếu đã đăng nhập
-    if (isLoggedIn) {
+    // Nếu đã đăng nhập và có token hợp lệ
+    if (isLoggedIn && hasValidToken) {
       // Nếu đang cố truy cập login hoặc register, redirect về todos
       if (url === 'login' || url === 'register') {
         this.router.navigate(['/todos']);
@@ -20,7 +21,12 @@ export class AuthGuard implements CanActivate {
       // Cho phép truy cập các route khác (như todos)
       return true;
     } else {
-      // Nếu chưa đăng nhập
+      // Nếu chưa đăng nhập hoặc không có token
+      // Xóa thông tin user nếu token không hợp lệ
+      if (!hasValidToken && isLoggedIn) {
+        this.authService.logout();
+      }
+      
       // Cho phép truy cập login và register
       if (url === 'login' || url === 'register') {
         return true;

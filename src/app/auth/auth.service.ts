@@ -9,6 +9,11 @@ export interface User {
   password: string;
 }
 
+export interface LoginResponse {
+  user: User;
+  token: string;
+}
+
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private collectionName = 'users';
@@ -44,7 +49,7 @@ export class AuthService {
   }
 
   // Đăng nhập
-  login(username: string, password: string): Observable<User> {
+  login(username: string, password: string): Observable<LoginResponse> {
     return this.afs
       .collection<User>(this.collectionName, ref => 
         ref.where('username', '==', username).where('password', '==', password)
@@ -57,9 +62,14 @@ export class AuthService {
           }
           
           const user = users[0];
+          // Tạo token đơn giản (trong thực tế nên dùng JWT từ server)
+          const token = this.generateToken(user);
+          
           this.currentUserSubject.next(user);
           localStorage.setItem('currentUser', JSON.stringify(user));
-          return user;
+          localStorage.setItem('token', token);
+          
+          return { user, token };
         })
       );
   }
@@ -68,6 +78,7 @@ export class AuthService {
   logout(): void {
     this.currentUserSubject.next(null);
     localStorage.removeItem('currentUser');
+    localStorage.removeItem('token');
   }
 
   // Lấy current user
@@ -77,6 +88,21 @@ export class AuthService {
 
   // Kiểm tra đã đăng nhập chưa
   get isLoggedIn(): boolean {
-    return this.currentUserSubject.value !== null;
+    return this.currentUserSubject.value !== null && this.getToken() !== null;
+  }
+
+  // Lấy token
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
+  // Tạo token đơn giản (trong thực tế nên dùng JWT từ server)
+  private generateToken(user: User): string {
+    const payload = {
+      userId: user.id,
+      username: user.username,
+      timestamp: Date.now()
+    };
+    return btoa(JSON.stringify(payload));
   }
 }
