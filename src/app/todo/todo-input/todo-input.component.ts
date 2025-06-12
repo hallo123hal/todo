@@ -1,7 +1,11 @@
 import { Component, Output, EventEmitter } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-todo-input',
+  standalone: true,
+  imports: [CommonModule, FormsModule],
   templateUrl: "./todo-input.component.html",
 })
 export class TodoInputComponent {

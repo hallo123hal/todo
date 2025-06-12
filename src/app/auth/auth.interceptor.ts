@@ -1,30 +1,22 @@
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { 
-  HttpInterceptor, 
-  HttpRequest, 
-  HttpHandler, 
-  HttpEvent, 
-  HttpErrorResponse 
-} from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
+import { Observable, catchError, throwError } from 'rxjs';
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  
   constructor(
     private authService: AuthService,
     private router: Router
   ) {}
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const token = this.authService.getToken();
     
     let authReq = req;
+    // nếu có token, clone request gốc và thêm header
     if (token) {
-      // clone request, thêm auth Header
       authReq = req.clone({
         setHeaders: {
           Authorization: `Bearer ${token}`,
@@ -33,11 +25,13 @@ export class AuthInterceptor implements HttpInterceptor {
       });
     }
 
-    // log lỗi request
+    // chuyển request, trả về observable
+    // pipe truyền observable qua catchError, bắt lỗi từ rquest
     return next.handle(authReq).pipe(
       catchError((error: HttpErrorResponse) => {
-        let errorMessage = 'An error occurred';
+        let errorMessage = 'An error occurred'; // thông báo mặc định
         
+        // xác định loại lỗi và thông báo tương ứng
         switch (error.status) {
           case 401:
             errorMessage = 'Session expired. Please login again.';
@@ -60,9 +54,8 @@ export class AuthInterceptor implements HttpInterceptor {
           case 0:
             errorMessage = 'Network error. Please check your connection.';
             break;
-            
+          
           default:
-            // ưu tiên message từ server
             if (error.error?.message) {
               errorMessage = error.error.message;
             } else if (error.message) {
@@ -70,18 +63,18 @@ export class AuthInterceptor implements HttpInterceptor {
             }
         }
         
-        // log lỗi ra console
-        console.error('HTTP Error:', error);
-        console.error('Error Message:', errorMessage);
+        //console.error('HTTP Error:', error);
+        //console.error('Error Message:', errorMessage);
         
         this.showErrorNotification(errorMessage);
         
+        // re-throw observable lỗi mới sau xử lý
         return throwError(() => new Error(errorMessage));
       })
     );
   }
-  
-  // hiện thông báo lỗi
+
+  // hiển thị thông báo lỗi trong log
   private showErrorNotification(message: string): void {
     console.error('Error:', message);
   }
