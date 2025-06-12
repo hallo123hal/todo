@@ -31,7 +31,7 @@ export class TodoService {
     return this.afs
       .collection<Todo>(this.collectionName, ref => 
         ref.where('userId', '==', currentUser.id)
-        //.orderBy('order', 'asc')
+        .orderBy('order', 'asc')
       )
       .valueChanges({ idField: 'id' })
       .pipe(
