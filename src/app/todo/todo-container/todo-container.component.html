@@ -1,8 +1,4 @@
-<div class="todo-container">
-  
-  <!-- Input component để thêm todo mới -->
+<div class="todo-container flex flex-col items-center min-h-screen bg-gray-50 p-4 space-y-4">
   <app-todo-input (addTask)="onAddTask($event)"></app-todo-input>
-  
-  <!-- List component để hiển thị todos -->
   <app-todo-list></app-todo-list>
 </div>

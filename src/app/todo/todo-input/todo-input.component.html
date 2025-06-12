@@ -1,4 +1,10 @@
-<div class="flex space-x-2">
-  <input type="text" maxlength="30" [(ngModel)]="task" class="flex-1 border rounded px-2 py-1" placeholder="Add a new task...">
-  <button class="bg-pink-500 text-white px-4 py-1 rounded" (click)="add()">Add</button>
+<div class="flex space-x-2 w-[400px]">
+  <input
+    type="text"
+    maxlength="30"
+    [(ngModel)]="task"
+    class="flex-grow border rounded px-2 py-1"
+    placeholder="Add a new task..."
+  />
+  <button class="bg-pink-500 text-white px-4 py-1 rounded w-[70px]" (click)="add()">Add</button>
 </div>

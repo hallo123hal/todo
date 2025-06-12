@@ -90,11 +90,6 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   private showErrorNotification(message: string): void {
-    // Có thể integrate với toast service hoặc notification service
-    // Ví dụ đơn giản với alert
     console.error('Error:', message);
-    
-    // Hoặc có thể emit event để component khác xử lý
-    // this.notificationService.showError(message);
   }
 }
