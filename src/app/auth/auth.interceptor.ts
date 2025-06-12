@@ -24,6 +24,7 @@ export class AuthInterceptor implements HttpInterceptor {
     
     let authReq = req;
     if (token) {
+      // clone request, thêm auth Header
       authReq = req.clone({
         setHeaders: {
           Authorization: `Bearer ${token}`,
@@ -32,6 +33,7 @@ export class AuthInterceptor implements HttpInterceptor {
       });
     }
 
+    // log lỗi request
     return next.handle(authReq).pipe(
       catchError((error: HttpErrorResponse) => {
         let errorMessage = 'An error occurred';
@@ -60,6 +62,7 @@ export class AuthInterceptor implements HttpInterceptor {
             break;
             
           default:
+            // ưu tiên message từ server
             if (error.error?.message) {
               errorMessage = error.error.message;
             } else if (error.message) {
@@ -67,6 +70,7 @@ export class AuthInterceptor implements HttpInterceptor {
             }
         }
         
+        // log lỗi ra console
         console.error('HTTP Error:', error);
         console.error('Error Message:', errorMessage);
         
@@ -76,7 +80,8 @@ export class AuthInterceptor implements HttpInterceptor {
       })
     );
   }
-
+  
+  // hiện thông báo lỗi
   private showErrorNotification(message: string): void {
     console.error('Error:', message);
   }

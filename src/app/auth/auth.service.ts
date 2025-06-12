@@ -20,6 +20,7 @@ export class AuthService {
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
 
+  // nếu chưa logout thì lấy user từ localStorage
   constructor(private afs: AngularFirestore) {
     const savedUser = localStorage.getItem('currentUser');
     if (savedUser) {
@@ -27,6 +28,7 @@ export class AuthService {
     }
   }
 
+  //đăng ký: check trùng, dùng switchMap chuyển snapshot sang Observable thêm user
   register(username: string, password: string): Observable<any> {
     return this.afs
       .collection<User>(this.collectionName, ref => 
@@ -45,6 +47,7 @@ export class AuthService {
       );
   }
 
+  // đăng nhập: truy vấn user, trùng tạo token và lưu vào localStorage
   login(username: string, password: string): Observable<LoginResponse> {
     return this.afs
       .collection<User>(this.collectionName, ref => 
@@ -69,6 +72,7 @@ export class AuthService {
       );
   }
 
+  // xóa khỏi localStorage
   logout(): void {
     this.currentUserSubject.next(null);
     localStorage.removeItem('currentUser');
@@ -87,6 +91,7 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
+  // giả lập tạo token bằng mã hóa JSON
   private generateToken(user: User): string {
     const payload = {
       userId: user.id,

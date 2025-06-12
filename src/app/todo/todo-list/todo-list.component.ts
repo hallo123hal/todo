@@ -17,6 +17,8 @@ export class TodoListComponent implements OnInit {
     this.loadTodos();
   }
 
+  // tải danh sách todos từ service
+  // sử dụng subscribe để nhận dữ liệu từ Observable từ getTodos()
   loadTodos() {
     this.loading = true;
     this.error = null;
@@ -34,6 +36,7 @@ export class TodoListComponent implements OnInit {
     });
   }
 
+  
   deleteTask(id: string) {
     this.todoService.deleteTodo(id)
       .then(() => {
@@ -67,7 +70,6 @@ export class TodoListComponent implements OnInit {
     this.editingId = null;
   }
 
-  // Thêm method để handle add todo từ input component
   addTask(text: string) {
     this.todoService.addTodo(text).subscribe({
       next: () => {

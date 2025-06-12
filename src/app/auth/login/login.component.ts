@@ -16,6 +16,7 @@ export class LoginComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
   onSubmit() {
+    // kiểm tra thủ công, không có validation vì là template-driven form
     if (!this.username || !this.password) {
       this.error = 'Please fill in all fields';
       return;
@@ -24,6 +25,7 @@ export class LoginComponent {
     this.loading = true;
     this.error = '';
 
+    // gọi service đăng nhập
     this.authService.login(this.username, this.password).subscribe({
       next: (user) => {
         this.loading = false;

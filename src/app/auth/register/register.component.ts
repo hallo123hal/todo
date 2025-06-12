@@ -19,6 +19,7 @@ export class RegisterComponent implements OnInit {
     private router: Router
   ) {}
 
+  // khởi tạo form
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(3)]],
@@ -26,6 +27,7 @@ export class RegisterComponent implements OnInit {
     });
   }
 
+  // hỗ trợ truy cập các form control
   get f() {
     return this.registerForm.controls;
   }
@@ -40,6 +42,7 @@ export class RegisterComponent implements OnInit {
 
     const { username, password } = this.registerForm.value;
 
+    // gọi service đăng ký
     this.authService.register(username, password).subscribe({
       next: () => {
         this.loading = false;

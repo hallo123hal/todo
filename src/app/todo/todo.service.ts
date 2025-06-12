@@ -19,6 +19,7 @@ export class TodoService {
   constructor(private afs: AngularFirestore, private authService: AuthService) {}
 
   getTodos(): Observable<Todo[]> {
+    // kiểm tra đăng nhập
     const currentUser = this.authService.currentUser;
     if (!currentUser) {
       console.warn('User not authenticated');
@@ -26,7 +27,8 @@ export class TodoService {
     }
 
     //console.log('Current user ID:', currentUser.id);
-
+    
+    // truy vấn todos, sắp xếp theo order
     return this.afs
       .collection<Todo>(this.collectionName, ref => 
         ref.where('userId', '==', currentUser.id)
@@ -44,6 +46,7 @@ export class TodoService {
       );
   }
 
+  // kiểm tra đăng nhập rồi tạo object newTodo, from() chuyển Promise sang Observable
   addTodo(todoText: string): Observable<any> {
     const currentUser = this.authService.currentUser;
     if (!currentUser) {
@@ -60,6 +63,7 @@ export class TodoService {
     return from(this.afs.collection<Todo>(this.collectionName).add(newTodo));
   }
 
+  // kiểm tra sở hữu rồi cho update
   updateTodo(todo: Todo): Promise<void> {
     const currentUser = this.authService.currentUser;
     if (!currentUser) {
@@ -73,6 +77,7 @@ export class TodoService {
     return this.afs.collection(this.collectionName).doc(todo.id).update(todo);
   }
 
+  // kiểm tra sở hữu rồi cho xóa
   deleteTodo(id: string): Promise<void> {
     const currentUser = this.authService.currentUser;
     if (!currentUser) {

@@ -12,12 +12,14 @@ export class AuthGuard implements CanActivate {
     const url = route.url[0]?.path;
 
     if (isLoggedIn && hasValidToken) {
+      // login rồi block vào login hoặc register
       if (url === 'login' || url === 'register') {
         this.router.navigate(['/todos']);
         return false;
       }
       return true;
     } else {
+      // mất token hoặc chưa login => logout
       if (!hasValidToken && isLoggedIn) {
         this.authService.logout();
       }
