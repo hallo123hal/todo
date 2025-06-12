@@ -96,7 +96,6 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
-  // Tạo token đơn giản (trong thực tế nên dùng JWT từ server)
   private generateToken(user: User): string {
     const payload = {
       userId: user.id,

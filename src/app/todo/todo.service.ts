@@ -18,15 +18,14 @@ export class TodoService {
 
   constructor(private afs: AngularFirestore, private authService: AuthService) {}
 
-  // Lấy todos của user hiện tại - xử lý trường hợp chưa có collection
   getTodos(): Observable<Todo[]> {
     const currentUser = this.authService.currentUser;
     if (!currentUser) {
       console.warn('User not authenticated');
-      return of([]); // Trả về empty array thay vì throw error
+      return of([]);
     }
 
-    console.log('Current user ID:', currentUser.id); // Debug log
+    //console.log('Current user ID:', currentUser.id);
 
     return this.afs
       .collection<Todo>(this.collectionName, ref => 
@@ -37,16 +36,14 @@ export class TodoService {
       .pipe(
         catchError(error => {
           console.error('Error fetching todos:', error);
-          // Log chi tiết lỗi
           if (error.code === 'failed-precondition') {
             console.error('Firestore index needed. Check the error message for the index creation link.');
           }
-          return of([]); // Trả về empty array khi có lỗi
+          return of([]);
         })
       );
   }
 
-  // Thêm todo cho user hiện tại - đơn giản hóa logic order
   addTodo(todoText: string): Observable<any> {
     const currentUser = this.authService.currentUser;
     if (!currentUser) {
@@ -57,7 +54,7 @@ export class TodoService {
       text: todoText,
       completed: false,
       userId: currentUser.id!,
-      order: Date.now() // Sử dụng timestamp để đảm bảo unique order
+      order: Date.now() // dùng timestamp để order
     };
 
     return from(this.afs.collection<Todo>(this.collectionName).add(newTodo));
@@ -69,7 +66,6 @@ export class TodoService {
       throw new Error('User not authenticated');
     }
 
-    // Đảm bảo chỉ update todo của user hiện tại
     if (todo.userId !== currentUser.id) {
       throw new Error('Unauthorized to update this todo');
     }
@@ -83,7 +79,6 @@ export class TodoService {
       throw new Error('User not authenticated');
     }
 
-    // Kiểm tra todo có thuộc về user hiện tại không
     return this.afs.collection(this.collectionName).doc(id).get().toPromise()
       .then(doc => {
         if (!doc?.exists) {

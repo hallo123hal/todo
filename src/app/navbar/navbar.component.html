@@ -6,7 +6,7 @@
         </div>
         
         <div class="flex items-center space-x-4">
-          <!-- Khi chưa đăng nhập -->
+          <!-- chưa đăng nhập -->
           <ng-container *ngIf="!authService.isLoggedIn">
             <a routerLink="/login" 
                routerLinkActive="bg-pink-600" 
@@ -20,7 +20,7 @@
             </a>
           </ng-container>
           
-          <!-- Khi đã đăng nhập -->
+          <!-- đã đăng nhập -->
           <ng-container *ngIf="authService.isLoggedIn">
             <span class="text-white mr-4">
               Welcome, {{ authService.currentUser?.username }}!

@@ -11,9 +11,7 @@ export class TodoContainerComponent {
 
   constructor(public todoService: TodoService) {}
 
-  // Method để handle add task từ input component
   onAddTask(text: string) {
-    // Gọi addTask method từ todo-list component
     if (this.todoListComponent) {
       this.todoListComponent.addTask(text);
     }

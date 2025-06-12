@@ -5,7 +5,7 @@
     [checked]="todo.completed"
     (change)="onCheckboxChange()"
   />
-  <!-- Editing => input, save, cancel -->
+  <!-- đang edit -->
   <ng-container *ngIf="editingId === todo.id; else normalView">
     <input
       [(ngModel)]="editedText"
@@ -17,7 +17,7 @@
     <button class="bg-pink-500 text-white px-3 py-1 rounded mr-1" (click)="onSaveEdit()">Save</button>
     <button class="bg-gray-200 text-gray-600 px-3 py-1 rounded" (click)="onCancelEdit()">Cancel</button>
   </ng-container>
-  <!-- Not editting => normal -->
+  <!-- bình thường -->
   <ng-template #normalView>
     <span
       class="flex-1 text-gray-700"
