@@ -36,6 +36,8 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
+    this.registerForm.markAllAsTouched();
+    
     if (this.registerForm.invalid) {
       return;
     }

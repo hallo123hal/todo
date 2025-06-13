@@ -17,6 +17,7 @@ export interface LoginResponse {
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private collectionName = 'users';
+  //BehaviorSubject lưu trữ giá trị user hiện tại
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
 
@@ -38,7 +39,7 @@ export class AuthService {
       .pipe(
         switchMap(snapshot => {
           if (!snapshot.empty) {
-            throw new Error('Username already exists');
+            throw new Error('Username already exists'); // check trùng không empty (có trùng) => throw lỗi
           }
           
           const user: User = { username, password };
@@ -51,7 +52,7 @@ export class AuthService {
   login(username: string, password: string): Observable<LoginResponse> {
     return this.afs
       .collection<User>(this.collectionName, ref => 
-        ref.where('username', '==', username).where('password', '==', password)
+        ref.where('username', '==', username).where('password', '==', password) 
       )
       .valueChanges({ idField: 'id' })
       .pipe(
