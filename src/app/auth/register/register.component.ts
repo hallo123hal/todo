@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../auth.service';
@@ -9,7 +14,7 @@ import { AuthService } from '../auth.service';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
@@ -26,7 +31,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(3)]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
 
@@ -37,7 +42,7 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     this.registerForm.markAllAsTouched();
-    
+
     if (this.registerForm.invalid) {
       return;
     }
@@ -57,7 +62,7 @@ export class RegisterComponent implements OnInit {
       error: (error) => {
         this.loading = false;
         this.error = error.message || 'Registration failed';
-      }
+      },
     });
   }
 }

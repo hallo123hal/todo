@@ -1,4 +1,10 @@
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpInterceptor,
+  HttpRequest,
+  HttpHandler,
+  HttpEvent,
+  HttpErrorResponse,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, catchError, throwError } from 'rxjs';
@@ -6,22 +12,22 @@ import { AuthService } from './auth.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(
-    private authService: AuthService,
-    private router: Router
-  ) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
-  intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+  intercept(
+    req: HttpRequest<unknown>,
+    next: HttpHandler
+  ): Observable<HttpEvent<unknown>> {
     const token = this.authService.getToken();
-    
+
     let authReq = req;
     // nếu có token, clone request gốc và thêm header
     if (token) {
       authReq = req.clone({
         setHeaders: {
           Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
+          'Content-Type': 'application/json',
+        },
       });
     }
 
@@ -30,7 +36,7 @@ export class AuthInterceptor implements HttpInterceptor {
     return next.handle(authReq).pipe(
       catchError((error: HttpErrorResponse) => {
         let errorMessage = 'An error occurred'; // thông báo mặc định
-        
+
         // xác định loại lỗi và thông báo tương ứng
         switch (error.status) {
           case 401:
@@ -38,23 +44,24 @@ export class AuthInterceptor implements HttpInterceptor {
             this.authService.logout();
             this.router.navigate(['/login']);
             break;
-            
+
           case 403:
-            errorMessage = 'You do not have permission to access this resource.';
+            errorMessage =
+              'You do not have permission to access this resource.';
             break;
-            
+
           case 404:
             errorMessage = 'The requested resource was not found.';
             break;
-            
+
           case 500:
             errorMessage = 'Internal server error. Please try again later.';
             break;
-            
+
           case 0:
             errorMessage = 'Network error. Please check your connection.';
             break;
-          
+
           default:
             if (error.error?.message) {
               errorMessage = error.error.message;
@@ -62,12 +69,12 @@ export class AuthInterceptor implements HttpInterceptor {
               errorMessage = error.message;
             }
         }
-        
+
         //console.error('HTTP Error:', error);
         //console.error('Error Message:', errorMessage);
-        
+
         this.showErrorNotification(errorMessage);
-        
+
         // re-throw observable lỗi mới sau xử lý
         return throwError(() => new Error(errorMessage));
       })

@@ -7,7 +7,7 @@ import { TodoItemComponent } from '../todo-item/todo-item.component';
   selector: 'app-todo-list',
   standalone: true,
   imports: [CommonModule, TodoItemComponent],
-  templateUrl: './todo-list.component.html'
+  templateUrl: './todo-list.component.html',
 })
 export class TodoListComponent implements OnInit {
   todos: Todo[] = [];
@@ -26,7 +26,7 @@ export class TodoListComponent implements OnInit {
   loadTodos() {
     this.loading = true;
     this.error = null;
-    
+
     this.todoService.getTodos().subscribe({
       next: (todos) => {
         this.todos = todos;
@@ -36,28 +36,29 @@ export class TodoListComponent implements OnInit {
         console.error('Error loading todos:', error);
         this.error = 'Failed to load todos';
         this.loading = false;
-      }
+      },
     });
   }
 
-  
   deleteTask(id: string) {
-    this.todoService.deleteTodo(id)
+    this.todoService
+      .deleteTodo(id)
       .then(() => {
         console.log('Todo deleted successfully');
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('Error deleting todo:', error);
         this.error = 'Failed to delete todo';
       });
   }
 
   updateTask(todo: Todo) {
-    this.todoService.updateTodo(todo)
+    this.todoService
+      .updateTodo(todo)
       .then(() => {
         console.log('Todo updated successfully');
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('Error updating todo:', error);
         this.error = 'Failed to update todo';
       });
@@ -82,7 +83,7 @@ export class TodoListComponent implements OnInit {
       error: (error) => {
         console.error('Error adding todo:', error);
         this.error = 'Failed to add todo';
-      }
+      },
     });
   }
 }

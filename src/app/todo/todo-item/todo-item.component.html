@@ -1,4 +1,6 @@
-<div class="flex items-center border-b last:border-b-0 py-3 px-3 group transition">
+<div
+  class="flex items-center border-b last:border-b-0 py-3 px-3 group transition"
+>
   <input
     type="checkbox"
     class="mr-3 w-4 h-4 text-pink-500 border-gray-300 focus:ring-pink-400 rounded"
@@ -14,14 +16,26 @@
       (keyup.escape)="onCancelEdit()"
       autofocus
     />
-    <button i18n="@@saveEditButton" class="bg-pink-500 text-white px-3 py-1 rounded mr-1" (click)="onSaveEdit()">Save</button>
-    <button i18n="@@cancelEditButton" class="bg-gray-200 text-gray-600 px-3 py-1 rounded" (click)="onCancelEdit()">Cancel</button>
+    <button
+      i18n="@@saveEditButton"
+      class="bg-pink-500 text-white px-3 py-1 rounded mr-1"
+      (click)="onSaveEdit()"
+    >
+      Save
+    </button>
+    <button
+      i18n="@@cancelEditButton"
+      class="bg-gray-200 text-gray-600 px-3 py-1 rounded"
+      (click)="onCancelEdit()"
+    >
+      Cancel
+    </button>
   </ng-container>
   <!-- bình thường -->
   <ng-template #normalView>
     <span
       class="flex-1 text-gray-700"
-      [ngClass]="{'line-through text-gray-400': todo.completed}"
+      [ngClass]="{ 'line-through text-gray-400': todo.completed }"
     >
       {{ todo.text }}
     </span>
@@ -30,8 +44,19 @@
       title="Edit"
       (click)="onStartEdit()"
     >
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-pink-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536M9 13.5V17h3.5l7.036-7.036a2.5 2.5 0 00-3.536-3.536L9 13.5z" />
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-4 h-4 text-pink-500"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M15.232 5.232l3.536 3.536M9 13.5V17h3.5l7.036-7.036a2.5 2.5 0 00-3.536-3.536L9 13.5z"
+        />
       </svg>
     </button>
     <button
@@ -39,8 +64,19 @@
       title="Delete"
       (click)="onDelete()"
     >
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-pink-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-4 h-4 text-pink-500"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M6 18L18 6M6 6l12 12"
+        />
       </svg>
     </button>
   </ng-template>

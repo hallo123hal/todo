@@ -1,36 +1,43 @@
 <nav class="bg-pink-500 shadow-lg">
-    <div class=" mx-auto px-10">
-      <div class="flex justify-between items-center py-4">
-        <div class="flex items-center">
-          <h1 class="text-white text-xl font-bold">Todo App</h1>
-        </div>
-        
-        <div class="flex items-center space-x-4">
-          <!-- chưa đăng nhập -->
-          <ng-container i18n="navButton" *ngIf="!authService.isLoggedIn">
-            <a routerLink="/login" 
-               routerLinkActive="bg-pink-600" 
-               class="text-white hover:bg-pink-600 px-3 py-2 rounded-md transition">
-              Login
-            </a>
-            <a routerLink="/register" 
-               routerLinkActive="bg-pink-600" 
-               class="text-white hover:bg-pink-600 px-3 py-2 rounded-md transition">
-              Register
-            </a>
-          </ng-container>
-          
-          <!-- đã đăng nhập -->
-          <ng-container *ngIf="authService.isLoggedIn">
-            <span i18n="@@welcome" class="text-white mr-4">
-              Welcome, {{ authService.currentUser?.username }}!
-            </span>
-            <button i18n="logoutButton" (click)="logout()" 
-                    class="text-white hover:bg-pink-600 px-3 py-2 rounded-md transition">
-              Logout
-            </button>
-          </ng-container>
-        </div>
+  <div class="mx-auto px-10">
+    <div class="flex justify-between items-center py-4">
+      <div class="flex items-center">
+        <h1 class="text-white text-xl font-bold">Todo App</h1>
+      </div>
+
+      <div class="flex items-center space-x-4">
+        <!-- chưa đăng nhập -->
+        <ng-container i18n="navButton" *ngIf="!authService.isLoggedIn">
+          <a
+            routerLink="/login"
+            routerLinkActive="bg-pink-600"
+            class="text-white hover:bg-pink-600 px-3 py-2 rounded-md transition"
+          >
+            Login
+          </a>
+          <a
+            routerLink="/register"
+            routerLinkActive="bg-pink-600"
+            class="text-white hover:bg-pink-600 px-3 py-2 rounded-md transition"
+          >
+            Register
+          </a>
+        </ng-container>
+
+        <!-- đã đăng nhập -->
+        <ng-container *ngIf="authService.isLoggedIn">
+          <span i18n="@@welcome" class="text-white mr-4">
+            Welcome, {{ authService.currentUser?.username }}!
+          </span>
+          <button
+            i18n="logoutButton"
+            (click)="logout()"
+            class="text-white hover:bg-pink-600 px-3 py-2 rounded-md transition"
+          >
+            Logout
+          </button>
+        </ng-container>
       </div>
     </div>
-  </nav>
+  </div>
+</nav>

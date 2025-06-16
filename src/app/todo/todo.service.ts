@@ -16,7 +16,10 @@ export interface Todo {
 export class TodoService {
   private collectionName = 'todos';
 
-  constructor(private afs: AngularFirestore, private authService: AuthService) {}
+  constructor(
+    private afs: AngularFirestore,
+    private authService: AuthService
+  ) {}
 
   getTodos(): Observable<Todo[]> {
     // kiểm tra đăng nhập
@@ -27,19 +30,20 @@ export class TodoService {
     }
 
     //console.log('Current user ID:', currentUser.id);
-    
+
     // truy vấn todos, sắp xếp theo order
     return this.afs
-      .collection<Todo>(this.collectionName, ref => 
-        ref.where('userId', '==', currentUser.id)
-        .orderBy('order', 'asc')
+      .collection<Todo>(this.collectionName, (ref) =>
+        ref.where('userId', '==', currentUser.id).orderBy('order', 'asc')
       )
       .valueChanges({ idField: 'id' })
       .pipe(
-        catchError(error => {
+        catchError((error) => {
           console.error('Error fetching todos:', error);
           if (error.code === 'failed-precondition') {
-            console.error('Firestore index needed. Check the error message for the index creation link.');
+            console.error(
+              'Firestore index needed. Check the error message for the index creation link.'
+            );
           }
           return of([]);
         })
@@ -57,7 +61,7 @@ export class TodoService {
       text: todoText,
       completed: false,
       userId: currentUser.id!,
-      order: Date.now() // dùng timestamp để order
+      order: Date.now(), // dùng timestamp để order
     };
 
     return from(this.afs.collection<Todo>(this.collectionName).add(newTodo));
@@ -84,17 +88,21 @@ export class TodoService {
       throw new Error('User not authenticated');
     }
 
-    return this.afs.collection(this.collectionName).doc(id).get().toPromise()
-      .then(doc => {
+    return this.afs
+      .collection(this.collectionName)
+      .doc(id)
+      .get()
+      .toPromise()
+      .then((doc) => {
         if (!doc?.exists) {
           throw new Error('Todo not found');
         }
-        
+
         const todoData = doc.data() as Todo;
         if (todoData.userId !== currentUser.id) {
           throw new Error('Unauthorized to delete this todo');
         }
-        
+
         return this.afs.collection(this.collectionName).doc(id).delete();
       });
   }

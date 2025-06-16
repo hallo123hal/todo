@@ -32,16 +32,16 @@ export class AuthService {
   //đăng ký: check trùng, dùng switchMap chuyển snapshot sang Observable thêm user
   register(username: string, password: string): Observable<any> {
     return this.afs
-      .collection<User>(this.collectionName, ref => 
+      .collection<User>(this.collectionName, (ref) =>
         ref.where('username', '==', username)
       )
       .get()
       .pipe(
-        switchMap(snapshot => {
+        switchMap((snapshot) => {
           if (!snapshot.empty) {
             throw new Error('Username already exists'); // check trùng không empty (có trùng) => throw lỗi
           }
-          
+
           const user: User = { username, password };
           return from(this.afs.collection<User>(this.collectionName).add(user));
         })
@@ -51,23 +51,23 @@ export class AuthService {
   // đăng nhập: truy vấn user, trùng tạo token và lưu vào localStorage
   login(username: string, password: string): Observable<LoginResponse> {
     return this.afs
-      .collection<User>(this.collectionName, ref => 
-        ref.where('username', '==', username).where('password', '==', password) 
+      .collection<User>(this.collectionName, (ref) =>
+        ref.where('username', '==', username).where('password', '==', password)
       )
       .valueChanges({ idField: 'id' })
       .pipe(
-        map(users => {
+        map((users) => {
           if (users.length === 0) {
             throw new Error('Invalid username or password');
           }
-          
+
           const user = users[0];
           const token = this.generateToken(user);
-          
+
           this.currentUserSubject.next(user);
           localStorage.setItem('currentUser', JSON.stringify(user));
           localStorage.setItem('token', token);
-          
+
           return { user, token };
         })
       );
@@ -97,7 +97,7 @@ export class AuthService {
     const payload = {
       userId: user.id,
       username: user.username,
-      timestamp: Date.now()
+      timestamp: Date.now(),
     };
     return btoa(JSON.stringify(payload));
   }

@@ -17,6 +17,6 @@ bootstrapApplication(AppComponent, {
       AngularFireModule.initializeApp(environment.firebase),
       AngularFirestoreModule
     ),
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
-  ]
-}).catch(err => console.error(err));
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
+}).catch((err) => console.error(err));

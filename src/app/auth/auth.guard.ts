@@ -23,7 +23,7 @@ export class AuthGuard implements CanActivate {
       if (!hasValidToken && isLoggedIn) {
         this.authService.logout();
       }
-      
+
       if (url === 'login' || url === 'register') {
         return true;
       }

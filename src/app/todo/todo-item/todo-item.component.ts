@@ -7,7 +7,7 @@ import { Todo } from '../todo.service';
   selector: 'app-todo-item',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './todo-item.component.html'
+  templateUrl: './todo-item.component.html',
 })
 export class TodoItemComponent {
   @Input() todo!: Todo;

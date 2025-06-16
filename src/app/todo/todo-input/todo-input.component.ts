@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-todo-input',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: "./todo-input.component.html",
+  templateUrl: './todo-input.component.html',
 })
 export class TodoInputComponent {
   task = '';
@@ -18,5 +18,5 @@ export class TodoInputComponent {
       this.addTask.emit(this.task.trim());
       this.task = '';
     }
-  }  
+  }
 }

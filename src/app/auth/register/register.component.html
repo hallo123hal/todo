@@ -1,63 +1,108 @@
 <div class="min-h-screen bg-gray-100 flex items-center justify-center">
-    <div class="max-w-md w-full bg-white rounded-lg shadow-md p-8">
-      <h2 i18n="@@regHeader" class="text-2xl font-bold text-center text-gray-800 mb-6">Register</h2>
-      
-      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-        <div class="mb-4">
-          <label i18n="@@regUsername" for="username" class="block text-gray-700 text-sm font-bold mb-2">
-            Username
-          </label>
-          <input
-            type="text"
-            id="username"
-            formControlName="username"
-            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
-            placeholder="Enter username (min 3 characters)"
-            i18n-placeholder
-          />
-          <div *ngIf="f['username'].invalid && f['username'].touched" class="text-red-500 text-sm mt-1">
-            <div i18n="@@regUsernameReq" *ngIf="f['username'].errors?.['required']">Username is required</div>
-            <div i18n="@@regUsernameMin" *ngIf="f['username'].errors?.['minlength']">Username must be at least {{ f['username'].errors?.['minlength'].requiredLength }} characters</div>
+  <div class="max-w-md w-full bg-white rounded-lg shadow-md p-8">
+    <h2
+      i18n="@@regHeader"
+      class="text-2xl font-bold text-center text-gray-800 mb-6"
+    >
+      Register
+    </h2>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="mb-4">
+        <label
+          i18n="@@regUsername"
+          for="username"
+          class="block text-gray-700 text-sm font-bold mb-2"
+        >
+          Username
+        </label>
+        <input
+          type="text"
+          id="username"
+          formControlName="username"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+          placeholder="Enter username (min 3 characters)"
+          i18n-placeholder
+        />
+        <div
+          *ngIf="f['username'].invalid && f['username'].touched"
+          class="text-red-500 text-sm mt-1"
+        >
+          <div
+            i18n="@@regUsernameReq"
+            *ngIf="f['username'].errors?.['required']"
+          >
+            Username is required
+          </div>
+          <div
+            i18n="@@regUsernameMin"
+            *ngIf="f['username'].errors?.['minlength']"
+          >
+            Username must be at least
+            {{ f['username'].errors?.['minlength'].requiredLength }} characters
           </div>
         </div>
-  
-        <div class="mb-6">
-          <label i18n="@@regPassword" for="password" class="block text-gray-700 text-sm font-bold mb-2">
-            Password
-          </label>
-          <input
-            type="password"
-            id="password"
-            formControlName="password"
-            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
-            placeholder="Enter password (min 6 characters)"
-            i18n-placeholder
-          />
-          <div *ngIf="f['password'].invalid && f['password'].touched" class="text-red-500 text-sm mt-1">
-            <div i18n="@@regPasswordReq" *ngIf="f['password'].errors?.['required']">Password is required</div>
-            <div i18n="@@regPasswordMin" *ngIf="f['password'].errors?.['minlength']">Password must be at least {{ f['password'].errors?.['minlength'].requiredLength }} characters</div>
-          </div>
-        </div>
-  
-        <div *ngIf="error" class="mb-4 text-red-500 text-sm text-center">
-          {{ error }}
-        </div>
-  
-        <button
-          type="submit"
-          
-          class="w-full bg-pink-500 text-white py-2 px-4 rounded-md hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-500 disabled:opacity-50 disabled:cursor-not-allowed"
-        > <!-- [disabled]="registerForm.invalid || loading" -->
-          <span i18n="@@regPasswordLoading" *ngIf="loading">Registering...</span>
-          <span i18n="@@regPasswordLoaded" *ngIf="!loading">Register</span>
-        </button>
-      </form>
-  
-      <div class="mt-6 text-center">
-        <p i18n="@@regText" class="text-gray-600">
-          Already have an account? 
-          <a routerLink="/login" class="text-pink-500 hover:text-pink-600 font-medium">Login here</a>
-        </p>
       </div>
+
+      <div class="mb-6">
+        <label
+          i18n="@@regPassword"
+          for="password"
+          class="block text-gray-700 text-sm font-bold mb-2"
+        >
+          Password
+        </label>
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+          placeholder="Enter password (min 6 characters)"
+          i18n-placeholder
+        />
+        <div
+          *ngIf="f['password'].invalid && f['password'].touched"
+          class="text-red-500 text-sm mt-1"
+        >
+          <div
+            i18n="@@regPasswordReq"
+            *ngIf="f['password'].errors?.['required']"
+          >
+            Password is required
+          </div>
+          <div
+            i18n="@@regPasswordMin"
+            *ngIf="f['password'].errors?.['minlength']"
+          >
+            Password must be at least
+            {{ f['password'].errors?.['minlength'].requiredLength }} characters
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="error" class="mb-4 text-red-500 text-sm text-center">
+        {{ error }}
+      </div>
+
+      <button
+        type="submit"
+        class="w-full bg-pink-500 text-white py-2 px-4 rounded-md hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-500 disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        <!-- [disabled]="registerForm.invalid || loading" -->
+        <span i18n="@@regPasswordLoading" *ngIf="loading">Registering...</span>
+        <span i18n="@@regPasswordLoaded" *ngIf="!loading">Register</span>
+      </button>
+    </form>
+
+    <div class="mt-6 text-center">
+      <p i18n="@@regText" class="text-gray-600">
+        Already have an account?
+        <a
+          routerLink="/login"
+          class="text-pink-500 hover:text-pink-600 font-medium"
+          >Login here</a
+        >
+      </p>
     </div>
   </div>
+</div>

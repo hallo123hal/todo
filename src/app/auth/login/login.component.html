@@ -1,67 +1,92 @@
 <div class="min-h-screen bg-gray-100 flex items-center justify-center">
-    <div class="max-w-md w-full bg-white rounded-lg shadow-md p-8">
-      <h2 i18n="@@loginHeader" class="text-2xl font-bold text-center text-gray-800 mb-6">Login</h2>
-      
-      <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
-        <div class="mb-4">
-          <label i18n="@@loginUsername" for="username" class="block text-gray-700 text-sm font-bold mb-2">
-            Username
-          </label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            [(ngModel)]="username"
-            required
-            #usernameField="ngModel"
-            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
-            placeholder="Enter your username"
-            i18n-placeholder
-          />
-          <div i18n="@@loginUsernameReq" *ngIf="usernameField.invalid && usernameField.touched" class="text-red-500 text-sm mt-1">
-            Username is required
-          </div>
-        </div>
-  
-        <div class="mb-6">
-          <label i18n="@@loginPassword" for="password" class="block text-gray-700 text-sm font-bold mb-2">
-            Password
-          </label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            [(ngModel)]="password"
-            required
-            #passwordField="ngModel"
-            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
-            placeholder="Enter your password"
-            i18n-placeholder
-          />
-          <div i18n="@@loginPasswordReq" *ngIf="passwordField.invalid && passwordField.touched" class="text-red-500 text-sm mt-1">
-            Password is required
-          </div>
-        </div>
-  
-        <div *ngIf="error" class="mb-4 text-red-500 text-sm text-center">
-          {{ error }}
-        </div>
-  
-        <button
-          type="submit"
-          [disabled]="loginForm.invalid || loading"
-          class="w-full bg-pink-500 text-white py-2 px-4 rounded-md hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-500 disabled:opacity-50 disabled:cursor-not-allowed"
+  <div class="max-w-md w-full bg-white rounded-lg shadow-md p-8">
+    <h2
+      i18n="@@loginHeader"
+      class="text-2xl font-bold text-center text-gray-800 mb-6"
+    >
+      Login
+    </h2>
+
+    <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
+      <div class="mb-4">
+        <label
+          i18n="@@loginUsername"
+          for="username"
+          class="block text-gray-700 text-sm font-bold mb-2"
         >
-          <span i18n="@@loginLoading" *ngIf="loading">Logging in...</span>
-          <span i18n="@@loginLoaded" *ngIf="!loading">Login</span>
-        </button>
-      </form>
-  
-      <div class="mt-6 text-center">
-        <p i18n="@@loginText" class="text-gray-600">
-          Don't have an account? 
-          <a routerLink="/register" class="text-pink-500 hover:text-pink-600 font-medium">Register here</a>
-        </p>
+          Username
+        </label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          [(ngModel)]="username"
+          required
+          #usernameField="ngModel"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+          placeholder="Enter your username"
+          i18n-placeholder
+        />
+        <div
+          i18n="@@loginUsernameReq"
+          *ngIf="usernameField.invalid && usernameField.touched"
+          class="text-red-500 text-sm mt-1"
+        >
+          Username is required
+        </div>
       </div>
+
+      <div class="mb-6">
+        <label
+          i18n="@@loginPassword"
+          for="password"
+          class="block text-gray-700 text-sm font-bold mb-2"
+        >
+          Password
+        </label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          [(ngModel)]="password"
+          required
+          #passwordField="ngModel"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+          placeholder="Enter your password"
+          i18n-placeholder
+        />
+        <div
+          i18n="@@loginPasswordReq"
+          *ngIf="passwordField.invalid && passwordField.touched"
+          class="text-red-500 text-sm mt-1"
+        >
+          Password is required
+        </div>
+      </div>
+
+      <div *ngIf="error" class="mb-4 text-red-500 text-sm text-center">
+        {{ error }}
+      </div>
+
+      <button
+        type="submit"
+        [disabled]="loginForm.invalid || loading"
+        class="w-full bg-pink-500 text-white py-2 px-4 rounded-md hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-500 disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        <span i18n="@@loginLoading" *ngIf="loading">Logging in...</span>
+        <span i18n="@@loginLoaded" *ngIf="!loading">Login</span>
+      </button>
+    </form>
+
+    <div class="mt-6 text-center">
+      <p i18n="@@loginText" class="text-gray-600">
+        Don't have an account?
+        <a
+          routerLink="/register"
+          class="text-pink-500 hover:text-pink-600 font-medium"
+          >Register here</a
+        >
+      </p>
     </div>
   </div>
+</div>

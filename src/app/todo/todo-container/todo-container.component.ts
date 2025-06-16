@@ -8,7 +8,7 @@ import { TodoInputComponent } from '../todo-input/todo-input.component';
   selector: 'app-todo-container',
   standalone: true,
   imports: [CommonModule, TodoListComponent, TodoInputComponent],
-  templateUrl: './todo-container.component.html'
+  templateUrl: './todo-container.component.html',
 })
 export class TodoContainerComponent {
   // cho phép tương tác với child component TodoListComponent
