@@ -9,6 +9,17 @@
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
+      "i18n": {
+        "sourceLocale": {
+          "code": "en-US"
+        },
+        "locales": {
+          "vi": {
+            "translation": "src/locale/messages.vi.xlf",
+            "baseHref": "/vi/"
+          }
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -18,13 +29,8 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.css"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.css"],
             "scripts": []
           },
           "configurations": {
@@ -49,6 +55,15 @@
               ],
               "outputHashing": "all"
             },
+            "vi": {
+              "localize": ["vi"],
+              "outputPath": "dist/toDo/vi",
+              "baseHref": "/vi/",
+              "i18nMissingTranslation": "error",
+              "optimization": false,
+              "buildOptimizer": false,
+              "sourceMap": true
+            },
             "development": {
               "buildOptimizer": false,
               "optimization": false,
@@ -68,6 +83,9 @@
             },
             "development": {
               "browserTarget": "toDo:build:development"
+            },
+            "vi": {
+              "browserTarget": "toDo:build:vi"
             }
           },
           "defaultConfiguration": "development"
@@ -85,13 +103,8 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.css"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.css"],
             "scripts": []
           }
         },

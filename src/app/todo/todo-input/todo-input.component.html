@@ -5,6 +5,7 @@
     [(ngModel)]="task"
     class="flex-grow border rounded px-2 py-1"
     placeholder="Add a new task..."
+    i18n-placeholder="@@addTaskPlaceholder"
   />
-  <button class="bg-pink-500 text-white px-4 py-1 rounded w-[70px]" (click)="add()">Add</button>
+  <button i18n="@@addButton" class="bg-pink-500 text-white px-4 py-1 rounded w-[70px]" (click)="add()">Add</button>
 </div>

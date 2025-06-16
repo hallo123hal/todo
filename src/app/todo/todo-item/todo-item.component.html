@@ -14,8 +14,8 @@
       (keyup.escape)="onCancelEdit()"
       autofocus
     />
-    <button class="bg-pink-500 text-white px-3 py-1 rounded mr-1" (click)="onSaveEdit()">Save</button>
-    <button class="bg-gray-200 text-gray-600 px-3 py-1 rounded" (click)="onCancelEdit()">Cancel</button>
+    <button i18n="@@saveEditButton" class="bg-pink-500 text-white px-3 py-1 rounded mr-1" (click)="onSaveEdit()">Save</button>
+    <button i18n="@@cancelEditButton" class="bg-gray-200 text-gray-600 px-3 py-1 rounded" (click)="onCancelEdit()">Cancel</button>
   </ng-container>
   <!-- bình thường -->
   <ng-template #normalView>

@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en-US" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="loginHeader" datatype="html">
+        <source>Đăng nhập</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/auth/login/login.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="loginUsername" datatype="html">
+        <source> Tên người dùng </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/auth/login/login.component.html</context>
+          <context context-type="linenumber">7,9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4327001039034401261" datatype="html">
+        <source>Nhập tên người dùng</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/auth/login/login.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="loginUsernameReq" datatype="html">
+        <source> Tên người dùng không được bỏ trống! </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/auth/login/login.component.html</context>
+          <context context-type="linenumber">20,22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="loginPassword" datatype="html">
+        <source> Mật khẩu </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/auth/login/login.component.html</context>
+          <context context-type="linenumber">26,28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2772023564304193657" datatype="html">
+        <source>Nhập mật khẩu</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/auth/login/login.component.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="loginPasswordReq" datatype="html">
+        <source> Mật khẩu không được bỏ trống! </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/auth/login/login.component.html</context>
+          <context context-type="linenumber">39,41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="loginLoading" datatype="html">
+        <source>Đang đăng nhập...</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/auth/login/login.component.html</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="loginLoaded" datatype="html">
+        <source>Đăng nhập</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/auth/login/login.component.html</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="loginText" datatype="html">
+        <source> Chưa có tài khoản? <x id="START_LINK" ctype="x-a" equiv-text="&lt;a routerLink=&quot;/register&quot; class=&quot;text-pink-500 hover:text-pink-600 font-medium&quot;&gt;"/>Đăng ký tại đây<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/auth/login/login.component.html</context>
+          <context context-type="linenumber">59,61</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="regHeader" datatype="html">
+        <source>Đăng ký</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/auth/register/register.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="regUsername" datatype="html">
+        <source> Tên người dùng </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/auth/register/register.component.html</context>
+          <context context-type="linenumber">7,9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3554579506770737576" datatype="html">
+        <source>Nhập tên người dùng (ít nhất 3 kí tự)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/auth/register/register.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="regUsernameReq" datatype="html">
+        <source>Tên người dùng không được bỏ trống!</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/auth/register/register.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="regUsernameMin" datatype="html">
+        <source>Tên người dùng phải có ít nhất <x id="INTERPOLATION" equiv-text="{{ f[&apos;username&apos;].errors?.[&apos;minlength&apos;].requiredLength }}"/> kí tự</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/auth/register/register.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="regPassword" datatype="html">
+        <source> Mật khẩu </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/auth/register/register.component.html</context>
+          <context context-type="linenumber">24,26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1978025737356304866" datatype="html">
+        <source>Nhập mật khẩu (ít nhất 6 kí tự)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/auth/register/register.component.html</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="regPasswordReq" datatype="html">
+        <source>Mật khẩu không được bỏ trống!</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/auth/register/register.component.html</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="regPasswordMin" datatype="html">
+        <source>Mật khẩu phải có ít nhất <x id="INTERPOLATION" equiv-text="{{ f[&apos;password&apos;].errors?.[&apos;minlength&apos;].requiredLength }}"/> kí tự</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/auth/register/register.component.html</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="regPasswordLoading" datatype="html">
+        <source>Đang đăng ký...</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/auth/register/register.component.html</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="regPasswordLoaded" datatype="html">
+        <source>Đăng ký</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/auth/register/register.component.html</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="regText" datatype="html">
+        <source> Đã có tài khoản? <x id="START_LINK" ctype="x-a" equiv-text="&lt;a routerLink=&quot;/login&quot; class=&quot;text-pink-500 hover:text-pink-600 font-medium&quot;&gt;"/>Đăng nhập tại đây<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/auth/register/register.component.html</context>
+          <context context-type="linenumber">55,57</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4028045885648733487" datatype="html">
+        <source><x id="START_LINK" ctype="x-a" equiv-text="&lt;a routerLink=&quot;/login&quot; 
+          routerLinkActive=&quot;bg-pink-600&quot; 
+          class=&quot;text-white hover:bg-pink-600 px-3 py-2 rounded-md transition&quot;&gt;"/> Đăng nhập <x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/><x id="START_LINK_1" equiv-text="&lt;a routerLink=&quot;/register&quot; 
+          routerLinkActive=&quot;bg-pink-600&quot; 
+          class=&quot;text-white hover:bg-pink-600 px-3 py-2 rounded-md transition&quot;&gt;"/> Đăng ký <x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/navbar/navbar.component.html</context>
+          <context context-type="linenumber">11,20</context>
+        </context-group>
+        <note priority="1" from="description">navButton</note>
+      </trans-unit>
+      <trans-unit id="welcome" datatype="html">
+        <source> Chào mừng, <x id="INTERPOLATION" equiv-text="{{ authService.currentUser?.username }}"/>! </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/navbar/navbar.component.html</context>
+          <context context-type="linenumber">25,27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7504940227782988572" datatype="html">
+        <source> Đăng xuất </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/navbar/navbar.component.html</context>
+          <context context-type="linenumber">29,31</context>
+        </context-group>
+        <note priority="1" from="description">logoutButton</note>
+      </trans-unit>
+      <trans-unit id="addTaskPlaceholder" datatype="html">
+        <source>Thêm một tác vụ mới...</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/todo/todo-input/todo-input.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="addButton" datatype="html">
+        <source>Thêm</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/todo/todo-input/todo-input.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="saveEditButton" datatype="html">
+        <source>Lưu</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/todo/todo-item/todo-item.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cancelEditButton" datatype="html">
+        <source>Hủy</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/todo/todo-item/todo-item.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
