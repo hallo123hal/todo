@@ -5,6 +5,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { importProvidersFrom } from '@angular/core';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { environment } from './environments/environment';
 import { AuthInterceptor } from './app/auth/auth.interceptor';
 import { routes } from './app/app-routes';
@@ -15,7 +16,8 @@ bootstrapApplication(AppComponent, {
     importProvidersFrom(HttpClientModule),
     importProvidersFrom(
       AngularFireModule.initializeApp(environment.firebase),
-      AngularFirestoreModule
+      AngularFirestoreModule,
+      AngularFireAuthModule
     ),
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],

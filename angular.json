@@ -61,15 +61,18 @@
               "outputHashing": "all"
             },
             "vi": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
               "localize": [
                 "vi"
               ],
               "outputPath": "dist/toDo/vi",
               "baseHref": "/vi/",
-              "i18nMissingTranslation": "error",
-              "optimization": false,
-              "buildOptimizer": false,
-              "sourceMap": true
+              "i18nMissingTranslation": "error"
             },
             "development": {
               "buildOptimizer": false,
