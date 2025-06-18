@@ -16,7 +16,7 @@ export class TodoItemComponent {
   @Output() update = new EventEmitter<Todo>();
   @Output() startEdit = new EventEmitter<Todo>();
   @Output() finishEdit = new EventEmitter<Todo>();
-  editedText: string = '';
+  editedText = '';
 
   //so sánh ID, trùng thì sửa
   ngOnChanges() {

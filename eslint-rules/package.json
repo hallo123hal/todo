@@ -1,0 +1,15 @@
+{
+  "name": "eslint-plugin-local",
+  "version": "1.0.0",
+  "description": "Local ESLint rules for Angular project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["eslint", "angular", "custom-rules"],
+  "author": "Son Tung",
+  "license": "MIT",
+  "peerDependencies": {
+    "eslint": ">=7.0.0"
+  }
+}
